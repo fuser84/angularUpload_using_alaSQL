@@ -1,3 +1,28 @@
-<p>
-  upload works!
-</p>
+<div class="contact_container"
+     fxLayout="column"
+     fxLayoutGap="10px">
+
+  <div fxFlex>
+    <div>
+      <h3>Upload actions</h3>
+      <hr>
+    </div>
+  </div>
+
+  <div fxFlex>
+    <form novalidate [formGroup]="form" #fileInput="ngForm" (ngSubmit)="onSubmit()">
+      <p>
+      <mat-form-field>
+        <input matInput placeholder="Your name" formControlName="name">
+      </mat-form-field>
+      </p>
+     <p>
+         <label for="uploadFile">File To Upload</label>
+         <input type="file" id="uploadFile" (change)="onFileChange($event)" #file>
+         <button type="button" class="btn btn-sm btn-default" (click)="clearFile()">clear file</button>
+         <button  mat-raised-button color="primary" type="submit" [disabled]="form.invalid || loading" class="btn btn-success">Submit
+           <i class="fa fa-spinner fa-spin fa-fw" *ngIf="loading"></i></button>
+     </p>
+    </form>
+  </div>
+</div>
