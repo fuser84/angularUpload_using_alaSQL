@@ -1,6 +1,8 @@
 import { Component, OnInit, ElementRef, ViewChild} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 
+
+
 @Component({
   selector: 'app-upload',
   templateUrl: './upload.component.html',
@@ -10,6 +12,7 @@ export class UploadComponent implements OnInit {
 
   form: FormGroup;
   loading: boolean = false;
+  content: string;
 
   @ViewChild('fileInput') fileInput;
   @ViewChild('file') file;
@@ -30,15 +33,32 @@ export class UploadComponent implements OnInit {
   onFileChange(event) {
     const reader = new FileReader();
     if (event.target.files && event.target.files.length > 0) {
+      // event.target.files[0]  is file-object itself
       const file = event.target.files[0];
-      reader.readAsDataURL(file);
+      // reader.readAsDataURL(file);
+      // reader.readAsText(file);
+      reader.readAsBinaryString(file);
+      // reader.readAsArrayBuffer(file);
       reader.onload = () => {
-        this.form.get('fileToUpload').setValue({
-          filename: file.name,
-          filetype: file.type,
-          value: reader.result.split(',')[1]
-        });
+        // this.form.get('fileToUpload').setValue({
+        //   filename: file.name,
+        //   filetype: file.type,
+        //   value: reader.result.split(',')[1]
+        // });
+        this.content = reader.result;
+        console.log(this.content);
+        console.log(typeof this.content);
+        const obj = JSON.parse(this.content);
+        console.log(obj.promotions);
+
+
+
+        // const blob = new Blob([obj], {
+        //   type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;charset=utf-16le'
+        // });
+        // saveAs(blob, 'export.xls');
       };
+
     }
   }
 
@@ -52,7 +72,7 @@ export class UploadComponent implements OnInit {
       alert('done!');
       this.loading = false;
     }, 1000);
-    this.fileInput.resetForm();
+    // this.fileInput.resetForm();
   }
 
   clearFile() {
