@@ -15,11 +15,14 @@ import {MatButtonModule} from '@angular/material/button';
 
 import 'hammerjs';
 
+// components
 import { AppComponent } from './app.component';
 import { UploadComponent } from './upload/upload.component';
 import { HeaderComponent } from './header/header.component';
 import { FooterComponent } from './footer/footer.component';
 
+// services
+import {ExcelService } from './services/excel.service';
 
 @NgModule({
   declarations: [
@@ -41,7 +44,7 @@ import { FooterComponent } from './footer/footer.component';
     MatInputModule,
     MatButtonModule
   ],
-  providers: [],
+  providers: [ExcelService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

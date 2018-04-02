@@ -1,5 +1,6 @@
 import { Component, OnInit, ElementRef, ViewChild} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
+import { ExcelService } from '../services/excel.service';
 
 
 
@@ -13,11 +14,12 @@ export class UploadComponent implements OnInit {
   form: FormGroup;
   loading: boolean = false;
   content: string;
+  obj: any;
 
   @ViewChild('fileInput') fileInput;
   @ViewChild('file') file;
 
-  constructor(private fb: FormBuilder) {
+  constructor(private fb: FormBuilder, private excelService: ExcelService) {
     this.createForm();
   }
 
@@ -29,7 +31,9 @@ export class UploadComponent implements OnInit {
   }
 
   ngOnInit() {
+     // this.excelService.exportAsExcelFile(JSON.parse(this.content), 'porta');
   }
+
   onFileChange(event) {
     const reader = new FileReader();
     if (event.target.files && event.target.files.length > 0) {
@@ -48,18 +52,15 @@ export class UploadComponent implements OnInit {
         this.content = reader.result;
         console.log(this.content);
         console.log(typeof this.content);
-        const obj = JSON.parse(this.content);
-        console.log(obj.promotions);
-
-
-
-        // const blob = new Blob([obj], {
-        //   type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;charset=utf-16le'
-        // });
-        // saveAs(blob, 'export.xls');
+        this.obj = JSON.parse(this.content);
+        console.log(this.obj.promotions);
+        console.log(typeof this.obj);
       };
-
     }
+  }
+
+  exportToExcel(e) {
+    this.excelService.exportAsExcelFile(this.obj, 'portaUpload');
   }
 
   onSubmit() {
