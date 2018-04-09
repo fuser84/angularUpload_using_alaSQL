@@ -19,6 +19,7 @@
      <p>
          <!--<label for="uploadFile">File To Upload</label>-->
          <input type="file" id="uploadFile" (change)="onFileChange($event)" #file>
+          <label for="uploadFile">Choose a file </label>
          <button type="button" class="btn btn-sm btn-default" (click)="clearFile()">clear file</button>
          <button  mat-raised-button color="primary" type="submit" [disabled]="form.invalid || loading" class="btn btn-success">Submit
            <i class="fa fa-spinner fa-spin fa-fw" *ngIf="loading"></i></button>

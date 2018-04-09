@@ -3,7 +3,6 @@ import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import { ExcelService } from '../services/excel.service';
 
 
-
 @Component({
   selector: 'app-upload',
   templateUrl: './upload.component.html',
@@ -30,9 +29,7 @@ export class UploadComponent implements OnInit {
     });
   }
 
-  ngOnInit() {
-     // this.excelService.exportAsExcelFile(JSON.parse(this.content), 'porta');
-  }
+  ngOnInit() {}
 
   onFileChange(event) {
     const reader = new FileReader();
@@ -60,7 +57,7 @@ export class UploadComponent implements OnInit {
   }
 
   exportToExcel(e) {
-    this.excelService.exportAsExcelFile(this.obj, 'portaUpload');
+     this.excelService.testAlaSQLExcelExport(this.obj);
   }
 
   onSubmit() {
@@ -79,6 +76,8 @@ export class UploadComponent implements OnInit {
   clearFile() {
     this.form.get('fileToUpload').setValue(null);
     this.file.nativeElement.value = '';
+    this.obj = '';
+    console.log(this.obj);
   }
 
 }
