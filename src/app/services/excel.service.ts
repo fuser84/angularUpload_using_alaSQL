@@ -12,7 +12,6 @@ export class ExcelService {
     console.log(json);
     alasql('SEARCH / AS @a \
       introduction AS @b \
-      objectives AS @obj \
       resources / AS @c \
       RETURN(@a->id AS id, @a->title AS title, @a->description AS description, \
         @a->keyTerms AS keyTerms, @a->visible AS visible, \

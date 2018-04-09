@@ -1,6 +1,7 @@
 import { Component, OnInit, ElementRef, ViewChild} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import { ExcelService } from '../services/excel.service';
+import swal from 'sweetalert2';
 
 
 @Component({
@@ -57,6 +58,13 @@ export class UploadComponent implements OnInit {
   }
 
   exportToExcel(e) {
+    if (this.obj === undefined) {
+      return swal({
+        title: 'No file has been added for the conversion?',
+        text: 'Please import file before exporting',
+        type: 'warning'
+      });
+    }
      this.excelService.testAlaSQLExcelExport(this.obj);
   }
 
